@@ -1,0 +1,16 @@
+projectInfo: |
+  # Coding Standards Blueprint
+
+  An Emergent blueprint that installs the **ui-patterns** schema pack into a
+  Memory knowledge-graph project: the named UI affordance recipes (layout,
+  editing, feedback, widgets) an agent needs in order to build an interface the
+  same way the codebase already does, plus the cross-cutting rules that
+  constrain them.
+
+  Graph-first: the graph is the source of truth for which patterns exist. A
+  pattern here carries a ready-to-paste delegation instruction, a markup
+  skeleton, the test contract (ids / `data-testid` / `aria-*` / htmx / `data-*`)
+  and source anchors stamped with the commit they were verified against.
+
+  Mined from the Memory web-ui catalog (`apps/web-ui/docs/ui-recipes.md` +
+  `ui-patterns.md` at `22fb418d7`): 12 recipes, 4 widgets, 10 rules.

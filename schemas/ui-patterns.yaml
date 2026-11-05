@@ -1,0 +1,150 @@
+name: ui-patterns
+version: 1.0.0
+author: mkucharz
+description: >
+  Named UI affordance recipes and cross-cutting UI rules for building interfaces, mined
+  from the Memory web-ui pattern catalog. Graph-first: each UIPattern carries the
+  instruction, the recipe skeleton, the test contract and verified source anchors.
+
+objectTypes:
+
+  - name: UIPattern
+    label: UI Pattern
+    description: >
+      A named, reusable UI affordance — a layout, editing, feedback or widget recipe with a
+      ready-to-paste instruction, a markup skeleton, a test contract and source anchors. Graph
+      is the source of truth for which patterns exist.
+    properties:
+      avoid_when:
+        type: string
+        description: 'When to pick a different pattern instead.'
+      category:
+        type: string
+        description: 'layout | edit | feedback | widget | nav | data-display'
+      contract_aria:
+        type: array
+        items: string
+        description: 'Required aria attributes. E.g. aria-current=page'
+      contract_data:
+        type: array
+        items: string
+        description: 'Required data-* hooks. E.g. data-dialog-autoopen'
+      contract_hx:
+        type: array
+        items: string
+        description: 'Required htmx wiring. E.g. hx-swap=none'
+      contract_other:
+        type: array
+        items: string
+        description: 'Other contract invariants (ids, route shapes, flags).'
+      contract_testid:
+        type: string
+        description: 'Required data-testid anchor. E.g. page-<slug>'
+      description:
+        type: string
+      doc_section:
+        type: string
+        description: 'Section the markdown catalog renders it into. E.g. Layout patterns'
+      exception_reason:
+        type: string
+        description: 'Why the exception exists; prefer extending the canonical pattern.'
+      instruction:
+        type: string
+        description: 'Ready-to-paste delegation line naming the pattern, target entity and file.'
+      is_exception:
+        type: boolean
+        description: 'True when this is a documented exception to the canonical pattern.'
+      layer:
+        type: string
+        description: 'Component layer. L0 go-daisy primitive, L1 domain adapter, L2 app composite, L3 page-local helper, L4 page'
+      pattern_id:
+        type: string
+        description: 'Namespaced stable id. E.g. layout.list, edit.modal, feedback.toast'
+      recipe:
+        type: string
+        description: 'Markup skeleton / code snippet built from real components.'
+      source_paths:
+        type: array
+        items: string
+        description: 'Source anchors as file:line. Verified against verified_sha.'
+      stack:
+        type: array
+        items: string
+        description: 'Stacks this pattern applies to. E.g. [templ+htmx+alpine], [react+tailwind], [swiftui]'
+      status:
+        type: string
+        description: 'active | experimental | deprecated'
+      variant_of:
+        type: string
+        description: 'pattern_id this is a documented variant of.'
+      verified_at:
+        type: string
+        description: 'ISO-8601 date the anchors were verified.'
+      verified_sha:
+        type: string
+        description: 'Commit whose line numbers the anchors were checked against.'
+      when_to_use:
+        type: string
+        description: 'The task that should select this pattern.'
+    required:
+      - pattern_id
+      - category
+      - instruction
+
+  - name: UIRule
+    label: UI Rule
+    description: >
+      A cross-cutting UI constraint that applies across patterns — PRG contract, htmx
+      ownership, component layers, role gating, untrusted content, test contract. Patterns
+      link to the rules that govern them; rules are never duplicated into a pattern.
+    properties:
+      applies_to:
+        type: array
+        items: string
+        description: 'pattern_ids or ''all'' it governs.'
+      category:
+        type: string
+        description: 'prg | htmx-ownership | component-layers | widget-policy | alpine-htmx | role-gating | security | testing | feedback'
+      description:
+        type: string
+      rationale:
+        type: string
+        description: 'Why the rule exists — the failure it prevents.'
+      rule_id:
+        type: string
+        description: 'Stable id. E.g. prg-contract, hide-dont-disable'
+      source_path:
+        type: string
+        description: 'Doc/section or code anchor defining the rule.'
+      statement:
+        type: string
+        description: 'The rule, in one sentence.'
+      status:
+        type: string
+        description: 'active | superseded'
+      strength:
+        type: string
+        description: 'MUST | SHOULD'
+    required:
+      - rule_id
+      - statement
+
+relationshipTypes:
+
+  - name: variant_of
+    label: Variant Of
+    description: 'This pattern is a documented variant of another pattern.'
+    sourceType: UIPattern
+    targetType: UIPattern
+
+  - name: pattern_governed_by
+    label: Governed By
+    description: 'A pattern is constrained by a cross-cutting UI rule.'
+    sourceType: UIPattern
+    targetType: UIRule
+
+  - name: supersedes
+    label: Supersedes
+    description: 'This pattern replaces a deprecated one.'
+    sourceType: UIPattern
+    targetType: UIPattern
