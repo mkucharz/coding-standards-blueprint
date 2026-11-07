@@ -59,6 +59,38 @@ maintenance job can find it with a query instead of a human rereading prose.
 
 ---
 
+## Type appearance (icons & colours)
+
+Both object types declare a `ui` block in `schemas/ui-patterns.yaml`:
+
+| Type | icon | colour |
+|---|---|---|
+| `UIPattern` | `layers` | `#8B5CF6` |
+| `UIRule` | `shield-check` | `#F59E0B` |
+
+Icons come from the closed Lucide catalog (`schema-icon-list`); a name outside
+it renders as a generic box.
+
+**Caveat (verified 2026-11-07).** The blueprint apply path does **not** push a
+pack's `ui:` block into the schema registry. `ObjectTypeDef.UI` round-trips
+through the manifest (it is carried as a raw map), but `createProjectPack` /
+`updateExistingPack` only send `object_types` and `relationship_type_schemas` —
+the registry keeps UI configuration in a separate schema-level `ui_configs` map
+keyed by type name, which apply never populates. `memory blueprints validate`
+does not check `ui` either, so the block is silently ignored, not warned about.
+
+Apply it explicitly after install:
+
+```bash
+curl -X PUT "https://<host>/api/schemas/<packId>" \
+  -H "X-API-Key: $MEMORY_API_KEY" -H "X-Project-ID: <projectId>" \
+  -H 'Content-Type: application/json' \
+  -d '{"ui_configs":{"UIPattern":{"icon":"layers","color":"#8B5CF6"},
+                     "UIRule":{"icon":"shield-check","color":"#F59E0B"}}}'
+```
+
+---
+
 ## Install
 
 ```bash

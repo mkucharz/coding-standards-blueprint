@@ -14,6 +14,9 @@ objectTypes:
       A named, reusable UI affordance — a layout, editing, feedback or widget recipe with a
       ready-to-paste instruction, a markup skeleton, a test contract and source anchors. Graph
       is the source of truth for which patterns exist.
+    ui:
+      icon: layers
+      color: '#8B5CF6'
     properties:
       avoid_when:
         type: string
@@ -97,6 +100,9 @@ objectTypes:
       A cross-cutting UI constraint that applies across patterns — PRG contract, htmx
       ownership, component layers, role gating, untrusted content, test contract. Patterns
       link to the rules that govern them; rules are never duplicated into a pattern.
+    ui:
+      icon: shield-check
+      color: '#F59E0B'
     properties:
       applies_to:
         type: array
