@@ -78,6 +78,7 @@ through the manifest (it is carried as a raw map), but `createProjectPack` /
 the registry keeps UI configuration in a separate schema-level `ui_configs` map
 keyed by type name, which apply never populates. `memory blueprints validate`
 does not check `ui` either, so the block is silently ignored, not warned about.
+Tracked upstream: [emergent-company/emergent.memory#291](https://github.com/emergent-company/emergent.memory/issues/291).
 
 Apply it explicitly after install:
 
