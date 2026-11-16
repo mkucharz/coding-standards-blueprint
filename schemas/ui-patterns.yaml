@@ -1,5 +1,5 @@
 name: ui-patterns
-version: 1.0.0
+version: 1.0.1
 author: mkucharz
 description: >
   Named UI affordance recipes and cross-cutting UI rules for building interfaces, mined
@@ -45,14 +45,17 @@ objectTypes:
         description: 'Required data-testid anchor. E.g. page-<slug>'
       description:
         type: string
+        format: markdown
       doc_section:
         type: string
         description: 'Section the markdown catalog renders it into. E.g. Layout patterns'
       exception_reason:
         type: string
+        format: markdown
         description: 'Why the exception exists; prefer extending the canonical pattern.'
       instruction:
         type: string
+        format: markdown
         description: 'Ready-to-paste delegation line naming the pattern, target entity and file.'
       is_exception:
         type: boolean
@@ -65,6 +68,7 @@ objectTypes:
         description: 'Namespaced stable id. E.g. layout.list, edit.modal, feedback.toast'
       recipe:
         type: string
+        format: markdown
         description: 'Markup skeleton / code snippet built from real components.'
       source_paths:
         type: array
@@ -113,8 +117,10 @@ objectTypes:
         description: 'prg | htmx-ownership | component-layers | widget-policy | alpine-htmx | role-gating | security | testing | feedback'
       description:
         type: string
+        format: markdown
       rationale:
         type: string
+        format: markdown
         description: 'Why the rule exists — the failure it prevents.'
       rule_id:
         type: string
@@ -124,6 +130,7 @@ objectTypes:
         description: 'Doc/section or code anchor defining the rule.'
       statement:
         type: string
+        format: markdown
         description: 'The rule, in one sentence.'
       status:
         type: string
